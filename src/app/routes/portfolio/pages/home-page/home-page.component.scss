@@ -86,6 +86,15 @@
   transform: translateY(-1px);
 }
 
+.chip:focus-visible,
+.btn:focus-visible,
+.project-card:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(21, 88, 91, 0.55);
+  outline-offset: 3px;
+}
+
 .section {
   margin-top: 88px;
   scroll-margin-top: 96px;
@@ -332,16 +341,12 @@
   gap: 20px;
 }
 
-.about-grid .bento-card:first-child {
-  grid-column: 1 / span 5;
+.about-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-.about-grid .bento-card:nth-child(2) {
-  grid-column: 6 / span 4;
-}
-
-.about-grid .bento-card:nth-child(3) {
-  grid-column: 10 / span 3;
+.about-grid .bento-card {
+  grid-column: auto;
 }
 
 .projects-grid {
@@ -554,7 +559,12 @@
   .experience-grid .bento-card {
     grid-column: 1 / -1;
   }
+
+  .hero-portrait img {
+    max-width: 240px;
+  }
 }
+
 
 @media (max-width: 768px) {
   .landing {
@@ -575,5 +585,69 @@
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .chip {
+    padding: 10px 14px;
+    font-size: 0.7rem;
+  }
+
+  .hero-copy,
+  .hero-portrait,
+  .hero-stack,
+  .hero-focus {
+    grid-column: 1 / -1;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.8rem, 6vw, 2.3rem);
+  }
+
+  .project-media {
+    padding: 12px;
+  }
+
+  .project-body {
+    padding: 16px 16px 20px;
+  }
+
+  .contact-form {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 540px) {
+  .landing {
+    padding: 116px 5vw 72px;
+  }
+
+  .chip-nav {
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .chip {
+    padding: 8px 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .cta-row {
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .quick-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-portrait img {
+    max-width: 220px;
   }
 }

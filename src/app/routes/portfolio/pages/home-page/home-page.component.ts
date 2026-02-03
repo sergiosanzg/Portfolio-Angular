@@ -139,7 +139,7 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     this.setStatus('Sending message...', 'info');
 
     emailjs
-      .sendForm('service_bbu0o6g', 'template_bf3ksfr', form, {
+      .sendForm('service_odp144d', 'template_bf3ksfr', form, {
         publicKey: environment.apiKey,
       })
       .then(
