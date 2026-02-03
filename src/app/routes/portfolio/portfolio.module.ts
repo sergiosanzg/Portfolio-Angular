@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutmePageComponent } from './pages/aboutme-page/aboutme-page.component';
-import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 
 import { PortfolioRoutingModule } from './portfolio-routing.module';
 import { MatCardModule } from '@angular/material/card';
@@ -15,7 +14,6 @@ import { ExperienceComponent } from './pages/experience/experience.component';
 @NgModule({
   declarations: [
     AboutmePageComponent,
-    ContactPageComponent,
     ProjectsPageComponent,
     HomePageComponent,
     ExperienceComponent,

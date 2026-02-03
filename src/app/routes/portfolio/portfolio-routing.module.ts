@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutmePageComponent } from './pages/aboutme-page/aboutme-page.component';
-import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { ProjectsPageComponent } from './pages/projects-page/projects-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { isAuthenticatedGuard, isNotAuthenticatedGuard } from '../Taskify/auth/guards';
@@ -20,10 +19,6 @@ const routes: Routes = [
   {
     path: 'experience',
     component: ExperienceComponent
-  },
-  {
-    path: 'contact',
-    component: ContactPageComponent
   },
   {
     path: 'projects',

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg fixed-top nav-shell">
   <div class="container-fluid">
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -10,20 +10,20 @@
       <div class="navbar-nav fs-5 text" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="portfolio/home" (click)="closeNav()">Home</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/portfolio', 'home']" fragment="home" (click)="closeNav()">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="portfolio/about" (click)="closeNav()">About Me</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/portfolio', 'home']" fragment="about" (click)="closeNav()">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="portfolio/experience" (click)="closeNav()">Experience</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/portfolio', 'home']" fragment="experience" (click)="closeNav()">Experience</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="portfolio/projects"
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/portfolio', 'home']" fragment="projects"
                (click)="closeNav()">Projects</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="portfolio/contact"
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/portfolio', 'home']" fragment="contact"
                (click)="closeNav()">Contact</a>
           </li>
         </ul>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="d-flex justify-content-center align-items-center">
-      <a class="navbar-brand name" routerLink="portfolio/home" (mouseenter)="onMouseEnter()"
+      <a class="navbar-brand name" [routerLink]="['/portfolio', 'home']" fragment="home" (mouseenter)="onMouseEnter()"
          (mouseleave)="onMouseLeave()">Sergio Sanz García</a>
     </div>
 

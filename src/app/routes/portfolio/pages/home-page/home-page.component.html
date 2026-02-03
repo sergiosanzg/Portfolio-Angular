@@ -1,23 +1,220 @@
-<div class="container-fluid">
+<div class="landing">
+  <nav class="chip-nav reveal" style="--delay: 0ms;">
+    <button class="chip" [class.active]="activeSection === 'about'" type="button" (click)="scrollToAbout()">About</button>
+    <button class="chip" [class.active]="activeSection === 'experience'" type="button" (click)="scrollToExperience()">Experience</button>
+    <button class="chip" [class.active]="activeSection === 'projects'" type="button" (click)="scrollToProjects()">Projects</button>
+    <button class="chip" [class.active]="activeSection === 'contact'" type="button" (click)="scrollToContact()">Contact</button>
+  </nav>
 
-  <div class="row flex-container">
-    <div class="col-6 d-flex flex-column">
-      <shared-sergio-sanz class="mt-5"></shared-sergio-sanz>
-
-      <div class="d-flex mt-5 mx-2 text-container">
-        <div class="vr border border-dark"></div>
-        <div class="text mx-2">
-          {{text}}
-          <span class="finaltext">and I'm also familiar with</span>
-          <br><button type="button" class="aboutBtn mt-3" [routerLink]="['..', 'about']" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">Read More</button>
+  <section class="hero" id="home">
+    <div class="hero-grid">
+      <div class="hero-copy reveal" style="--delay: 0ms;">
+        <span class="eyebrow">Front-end Developer</span>
+        <h1>Build fast, bold web experiences that feel human.</h1>
+        <p class="lead">
+          {{ text }} and I'm also familiar with Bootstrap, Sass, and Node.js.
+        </p>
+        <div class="cta-row">
+          <button class="btn primary" type="button" (click)="scrollToProjects()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">View Projects</button>
+          <button class="btn ghost" type="button" (click)="scrollToContact()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">Contact</button>
+        </div>
+        <div class="quick-row">
+          <div class="quick-card">
+            <span class="quick-label">Focus</span>
+            <span class="quick-value">UI, performance, and craft</span>
+          </div>
+          <div class="quick-card">
+            <span class="quick-label">Stack</span>
+            <span class="quick-value">Angular, TypeScript, Sass</span>
+          </div>
         </div>
       </div>
 
-      <div class="d-flex justify-content-center mt-5">
-        <shared-skills-icons></shared-skills-icons>
+      <div class="bento-card hero-portrait reveal" style="--delay: 120ms;">
+        <img src="assets/img/foto.webp" alt="Portrait of Sergio Sanz" />
+        <div class="portrait-meta">
+          <span>Lets collaborate</span>
+          <span class="dot"></span>
+          <span>Remote-ready workflow</span>
+        </div>
       </div>
 
+      <div class="bento-card hero-stack reveal" style="--delay: 200ms;">
+        <div class="card-title">Toolbox</div>
+        <div class="skill-grid">
+          <div class="skill-chip" *ngFor="let skill of skills">
+            <img [src]="skill.icon" [alt]="skill.name + ' logo'" />
+            <span>{{ skill.name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card hero-focus reveal" style="--delay: 280ms;">
+        <div class="card-title">Current Focus</div>
+        <ul class="focus-list">
+          <li *ngFor="let focus of focusAreas">{{ focus }}</li>
+        </ul>
+      </div>
     </div>
-      <shared-header-image class="col-6"></shared-header-image>
-  </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-header reveal" style="--delay: 0ms;">
+      <span class="eyebrow">About</span>
+      <h2>Design-led development with clean engineering.</h2>
+    </div>
+    <div class="bento-grid about-grid">
+      <div class="bento-card reveal" style="--delay: 100ms;">
+        <p class="body">
+          I build interfaces that feel intentional from the first pixel to the final
+          interaction. My goal is to translate concepts into reliable, fast, and polished
+          digital products.
+        </p>
+        <p class="body muted">
+          I enjoy collaborating closely with designers and stakeholders to keep quality
+          high while shipping efficiently.
+        </p>
+      </div>
+      <div class="bento-card reveal" style="--delay: 180ms;">
+        <div class="card-title">What I bring</div>
+        <div class="capability" *ngFor="let item of capabilities">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+      <div class="bento-card reveal" style="--delay: 260ms;">
+        <div class="card-title">Highlights</div>
+        <div class="pill-row">
+          <span class="pill">Design systems</span>
+          <span class="pill">Micro-interactions</span>
+          <span class="pill">Accessible UI</span>
+          <span class="pill">Responsive grids</span>
+          <span class="pill">Component libraries</span>
+          <span class="pill">API integration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="section-header reveal" style="--delay: 0ms;">
+      <span class="eyebrow">Experience</span>
+      <h2>Capabilities built for modern front-end delivery.</h2>
+    </div>
+    <div class="bento-grid experience-grid">
+      <div class="bento-card reveal" style="--delay: 120ms;">
+        <h3>Product UI</h3>
+        <p>
+          Build interfaces that communicate hierarchy, reduce friction, and feel
+          memorable across devices.
+        </p>
+      </div>
+      <div class="bento-card reveal" style="--delay: 200ms;">
+        <h3>Engineering</h3>
+        <p>
+          Component-driven development, scalable layouts, and maintainable codebases.
+        </p>
+      </div>
+      <div class="bento-card reveal" style="--delay: 280ms;">
+        <h3>Collaboration</h3>
+        <p>
+          Tight feedback loops, clear documentation, and design-to-dev alignment.
+        </p>
+      </div>
+      <div class="bento-card reveal" style="--delay: 360ms;">
+        <h3>Delivery</h3>
+        <p>
+          Prioritized roadmaps, fast iterations, and high-quality releases.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="section-header reveal" style="--delay: 0ms;">
+      <span class="eyebrow">Projects</span>
+      <h2>Selected work with a product-first mindset.</h2>
+    </div>
+    <div class="projects-grid">
+      <a
+        class="project-card reveal"
+        style="--delay: 80ms;"
+        *ngFor="let project of projects"
+        [routerLink]="['/portfolio', 'projects', project.route]"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()"
+      >
+        <div class="project-media">
+          <img [src]="project.img" [alt]="project.name + ' preview'" />
+        </div>
+        <div class="project-body">
+          <h3>{{ project.name }}</h3>
+          <p>{{ project.description }}</p>
+          <div class="pill-row">
+            <span class="pill" *ngFor="let tag of project.tags">{{ tag }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-header reveal" style="--delay: 0ms;">
+      <span class="eyebrow">Contact</span>
+      <h2>Let us build something sharp together.</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="bento-card reveal" style="--delay: 100ms;">
+        <h3>Let's connect</h3>
+        <p>
+          Reach out for collaborations, freelance opportunities, or just to say hello.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://www.linkedin.com/in/sergiiosanz10/" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">LinkedIn</a>
+          <a class="btn ghost" href="https://github.com/sergiosanzg" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">GitHub</a>
+        </div>
+      </div>
+      <div class="bento-card reveal" style="--delay: 180ms;">
+        <h3>Working style</h3>
+        <p>Clear milestones, frequent check-ins, and lightweight documentation.</p>
+        <div class="location-tag">Remote-ready</div>
+      </div>
+    </div>
+    <div class="contact-form bento-card reveal" style="--delay: 260ms;">
+      <div class="form-header">
+        <h3>Send a message</h3>
+        <p>I reply quickly. Share a quick brief or just say hi.</p>
+      </div>
+      <form
+        class="form-grid"
+        (submit)="sendEmail($event)"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()"
+      >
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="user_name" placeholder="Your name" required />
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="user_email" placeholder="you@email.com" required />
+        </label>
+        <label class="field full">
+          <span>Message</span>
+          <textarea name="message" placeholder="Tell me about your project" required></textarea>
+        </label>
+        <button class="btn primary submit" type="submit" [disabled]="isLoading">
+          {{ isLoading ? 'Sending...' : 'Send Message' }}
+        </button>
+      </form>
+      <div class="form-status" *ngIf="statusMessage">
+        <div class="status-pill" [class.success]="statusType === 'success'" [class.error]="statusType === 'error'" [class.info]="statusType === 'info'">
+          <span *ngIf="isLoading" class="status-spinner">
+            <shared-loadging-spiner></shared-loadging-spiner>
+          </span>
+          <span>{{ statusMessage }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

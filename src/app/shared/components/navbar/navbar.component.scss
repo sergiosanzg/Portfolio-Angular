@@ -1,19 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,400&display=swap');
-.name{
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
+.nav-shell {
+  background: rgba(17, 24, 39, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.navbar-nav .nav-link {
+  color: #f8f4ee;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: #fff;
+  margin-right: 0.5rem;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  color: #ffd6a5;
+}
+
+.name {
+  font-family: "Anton", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fef4e7;
   margin-left: 1rem;
   display: flex;
   align-items: center;
   justify-content: center !important;
+  letter-spacing: 0.05em;
 }
 
-.icons{
-  font-size: 1.4rem;
+.icons {
+  font-size: 1.35rem;
 }
 
-.socials i{
+.socials i {
   overflow: hidden;
 }
