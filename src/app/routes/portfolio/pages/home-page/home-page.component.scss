@@ -576,7 +576,8 @@ textarea:focus-visible {
   }
 
   .chip-nav {
-    top: 12px;
+    top: auto;
+    bottom: 16px;
     width: calc(100% - 24px);
     justify-content: center;
     left: 12px;
