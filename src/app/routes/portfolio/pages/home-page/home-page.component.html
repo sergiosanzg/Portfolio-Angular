@@ -35,14 +35,14 @@
 
       <aside class="hero-panel" data-reveal>
         <div class="hero-panel-media">
-          <img src="assets/img/foto2.webp" alt="Portrait of Sergio Sanz" />
+          <img src="assets/img/foto2.webp" alt="Portrait of Sergio Sanz" draggable="false"/>
         </div>
         <div class="hero-panel-copy">
           <span class="panel-label">Now Playing</span>
           <h2>Angular, TypeScript, Sass, and a strong eye for motion and layout.</h2>
           <div class="skill-list">
             <div class="skill-pill" *ngFor="let skill of skills">
-              <img [src]="skill.icon" [alt]="skill.name + ' logo'" />
+              <img [src]="skill.icon" [alt]="skill.name + ' logo'" draggable="false" />
               <span>{{ skill.name }}</span>
             </div>
           </div>
@@ -135,7 +135,7 @@
         (mouseleave)="onMouseLeave()"
       >
         <div class="project-image">
-          <img [src]="project.img" [alt]="project.name + ' preview'" />
+          <img [src]="project.img" [alt]="project.name + ' preview'" draggable="false" />
         </div>
         <div class="project-copy">
           <span class="project-index">0{{ i + 1 }}</span>
