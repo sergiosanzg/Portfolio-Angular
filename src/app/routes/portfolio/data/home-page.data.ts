@@ -85,10 +85,19 @@ export const HOME_TIMELINE: TimelineStepItem[] = [
 export const HOME_PROJECTS: ProjectItem[] = [
   {
     name: 'BeatLine',
-    description: 'A music game inspired by Hitster where a random song plays and you have to place it in the right date range.',
+    description:
+      'A music game inspired by Hitster where a random song plays and you have to place it in the right date range.',
     img: 'assets/img/beatLine.webp',
     href: 'https://beatline-music.netlify.app/',
     tags: ['Music Game', 'Timeline', 'Party Game'],
+  },
+  {
+    name: 'TradesView',
+    description:
+      'An advanced trading dashboard focused on operation statistics, performance tracking, and extra tools for analyzing trading activity.',
+    img: 'assets/img/tradesView.webp',
+    href: 'https://trades-view.netlify.app/',
+    tags: ['Trading Dashboard', 'Analytics', 'Performance'],
   },
 ];
 
