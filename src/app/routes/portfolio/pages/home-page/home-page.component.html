@@ -128,7 +128,10 @@
       <a
         class="project-card"
         *ngFor="let project of projects; let i = index"
-        [routerLink]="['/portfolio', 'projects', project.route]"
+        [routerLink]="project.route ? ['/portfolio', 'projects', project.route] : null"
+        [href]="project.href || null"
+        [attr.target]="project.href ? '_blank' : null"
+        [attr.rel]="project.href ? 'noreferrer' : null"
         [style.--delay]="i * 110 + 'ms'"
         data-reveal
         (mouseenter)="onMouseEnter()"

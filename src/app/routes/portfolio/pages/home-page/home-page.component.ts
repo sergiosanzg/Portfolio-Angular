@@ -101,26 +101,33 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
 
   public projects = [
     {
-      name: 'WeatherApp',
-      description: 'Forecasts, recommendations, and visual weather states with a cleaner interaction layer.',
-      img: 'assets/img/weather.webp',
-      route: 'weather',
-      tags: ['Live API', 'Responsive', 'UI polish'],
+      name: 'BeatLine',
+      description: 'A music game inspired by Hitster where a random song plays and you have to place it in the right date range.',
+      img: 'assets/img/beatLine.webp',
+      href: 'https://beatline-music.netlify.app/',
+      tags: ['Music Game', 'Timeline', 'Party Game'],
     },
-    {
-      name: 'Taskify',
-      description: 'Task management flow with authentication, backend integration, and dashboard logic.',
-      img: 'assets/img/taskify.webp',
-      route: 'auth',
-      tags: ['Angular', 'NestJS', 'Auth'],
-    },
-    {
-      name: 'Flags Explorer',
-      description: 'A searchable flag browser focused on speed, filtering, and approachable navigation.',
-      img: 'assets/img/flags.webp',
-      route: 'flags',
-      tags: ['Filters', 'UX', 'Data'],
-    },
+    // {
+    //   name: 'WeatherApp',
+    //   description: 'Forecasts, recommendations, and visual weather states with a cleaner interaction layer.',
+    //   img: 'assets/img/weather.webp',
+    //   route: 'weather',
+    //   tags: ['Live API', 'Responsive', 'UI polish'],
+    // },
+    // {
+    //   name: 'Taskify',
+    //   description: 'Task management flow with authentication, backend integration, and dashboard logic.',
+    //   img: 'assets/img/taskify.webp',
+    //   route: 'auth',
+    //   tags: ['Angular', 'NestJS', 'Auth'],
+    // },
+    // {
+    //   name: 'Flags Explorer',
+    //   description: 'A searchable flag browser focused on speed, filtering, and approachable navigation.',
+    //   img: 'assets/img/flags.webp',
+    //   route: 'flags',
+    //   tags: ['Filters', 'UX', 'Data'],
+    // },
     {
       name: 'Maps',
       description: 'Map-based interactions with smooth navigation and a more exploratory product feel.',
