@@ -45,7 +45,7 @@ export const HOME_STORY_PANELS: StoryPanelItem[] = [
 
 export const HOME_STATS: StatItem[] = [
   { value: '17+', label: 'Angular views and modules shaped across projects' },
-  { value: '4', label: 'Featured apps you can explore directly in this portfolio' },
+  { value: '1', label: 'Featured app you can explore directly in this portfolio' },
   { value: '100%', label: 'Responsive-first mindset across layout and interaction' },
 ];
 
@@ -89,13 +89,6 @@ export const HOME_PROJECTS: ProjectItem[] = [
     img: 'assets/img/beatLine.webp',
     href: 'https://beatline-music.netlify.app/',
     tags: ['Music Game', 'Timeline', 'Party Game'],
-  },
-  {
-    name: 'Maps',
-    description: 'Map-based interactions with smooth navigation and a more exploratory product feel.',
-    img: 'assets/img/maps.webp',
-    route: 'maps',
-    tags: ['Mapbox', 'Interaction', 'Frontend'],
   },
 ];
 
