@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoadgingSpinerComponent } from './components/loadging-spiner/loadging-spiner.component';
 import { RouterModule } from '@angular/router';
 import { CustomCursorComponent } from './components/custom-cursor/cursor-component';
@@ -15,7 +14,6 @@ import { MaterialModule } from './modules/material.module';
 
 @NgModule({
   declarations: [
-    NavbarComponent,
     LoadgingSpinerComponent,
     CustomCursorComponent,
     SergioSanzComponent,
@@ -29,7 +27,6 @@ import { MaterialModule } from './modules/material.module';
     MaterialModule
   ],
   exports: [
-    NavbarComponent,
     LoadgingSpinerComponent,
     CustomCursorComponent,
     SergioSanzComponent,

@@ -1,23 +1,26 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CustomCursorComponent } from '../../../../shared/components/custom-cursor/cursor-component';
-import {DEF_ABOUT_TEXT} from "../../../../core/globalConst";
-
+import { SharedModule } from '../../../../shared/shared.module';
+import { DEF_ABOUT_TEXT } from '../../../../core/globalConst';
 
 @Component({
   selector: 'app-aboutme-page',
+  standalone: true,
+  imports: [RouterLink, SharedModule],
   templateUrl: './aboutme-page.component.html',
-  styleUrl: './aboutme-page.component.scss'
+  styleUrl: './aboutme-page.component.scss',
 })
 export class AboutmePageComponent {
-  text: string = DEF_ABOUT_TEXT;
+  public text: string = DEF_ABOUT_TEXT;
 
-  constructor(private customCursor: CustomCursorComponent) { }
+  constructor(private customCursor: CustomCursorComponent) {}
 
-  onMouseEnter() {
+  public onMouseEnter(): void {
     this.customCursor.setIsHovered(true);
   }
 
-  onMouseLeave() {
+  public onMouseLeave(): void {
     this.customCursor.setIsHovered(false);
   }
 }

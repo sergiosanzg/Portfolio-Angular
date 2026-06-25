@@ -2,17 +2,37 @@ import { AfterViewInit, Component, HostListener, OnDestroy } from '@angular/core
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { environment } from '../../../../../environments/environment';
 import { DEF_ABOUT_SHORT_TEXT } from '../../../../core/globalConst';
-import { CustomCursorComponent } from '../../../../shared/components/custom-cursor/cursor-component';
-
-type SectionId = 'about' | 'experience' | 'projects' | 'contact';
+import { ContactSectionComponent } from '../../components/contact-section/contact-section.component';
+import { CraftSectionComponent } from '../../components/craft-section/craft-section.component';
+import { HeroSectionComponent } from '../../components/hero-section/hero-section.component';
+import { ProjectsSectionComponent } from '../../components/projects-section/projects-section.component';
+import { StorySectionComponent } from '../../components/story-section/story-section.component';
+import {
+  HOME_CAPABILITIES,
+  HOME_CONTACT_LINKS,
+  HOME_PROJECTS,
+  HOME_SKILLS,
+  HOME_STATS,
+  HOME_STORY_PANELS,
+  HOME_TIMELINE,
+} from '../../data/home-page.data';
+import { SectionId } from '../../models/home-page.models';
 
 @Component({
   selector: 'app-home-page',
+  standalone: true,
+  imports: [
+    HeroSectionComponent,
+    StorySectionComponent,
+    CraftSectionComponent,
+    ProjectsSectionComponent,
+    ContactSectionComponent,
+  ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent implements AfterViewInit, OnDestroy {
-  text: string = DEF_ABOUT_SHORT_TEXT;
+  public text: string = DEF_ABOUT_SHORT_TEXT;
   public isLoading = false;
   public statusMessage: string | null = null;
   public statusType: 'success' | 'error' | 'info' | null = null;
@@ -20,143 +40,30 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   public heroProgress = 0;
   public backgroundDrift = 0;
   public showScrollTop = false;
+  public readonly skills = HOME_SKILLS;
+  public readonly storyPanels = HOME_STORY_PANELS;
+  public readonly stats = HOME_STATS;
+  public readonly capabilities = HOME_CAPABILITIES;
+  public readonly timeline = HOME_TIMELINE;
+  public readonly projects = HOME_PROJECTS;
+  public readonly contactLinks = HOME_CONTACT_LINKS;
 
   private sectionObserver?: IntersectionObserver;
   private revealObserver?: IntersectionObserver;
 
-  public skills = [
-    { name: 'Angular', icon: 'assets/img/angular.webp' },
-    { name: 'TypeScript', icon: 'assets/img/ts.webp' },
-    { name: 'JavaScript', icon: 'assets/img/js.webp' },
-    { name: 'Node.js', icon: 'assets/img/node.webp' },
-    { name: 'Sass', icon: 'assets/img/scss.webp' },
-    { name: 'HTML', icon: 'assets/img/html.webp' },
-  ];
-
-  public storyPanels = [
-    {
-      kicker: 'Opening Scene',
-      title: 'Interfaces that arrive with atmosphere, then stay readable under pressure.',
-      copy:
-        'I design and build front-end experiences that feel cinematic on first contact and disciplined in day-to-day use.',
-      accent: 'Neon direction',
-      tone: 'coral',
-    },
-    {
-      kicker: 'Craft Layer',
-      title: 'Motion is there to guide the eye, reinforce hierarchy, and make the product feel alive.',
-      copy:
-        'I care about transitions, load states, spacing, and responsive behavior because polish should support clarity, not compete with it.',
-      accent: 'Motion with intent',
-      tone: 'gold',
-    },
-    {
-      kicker: 'Delivery Layer',
-      title: 'The build underneath stays pragmatic: maintainable components, API integration, and solid UX decisions.',
-      copy:
-        'That balance between visual ambition and clean engineering is where I do my best work.',
-      accent: 'Built to ship',
-      tone: 'cyan',
-    },
-  ];
-
-  public stats = [
-    { value: '17+', label: 'Angular views and modules shaped across projects' },
-    { value: '4', label: 'Featured apps you can explore directly in this portfolio' },
-    { value: '100%', label: 'Responsive-first mindset across layout and interaction' },
-  ];
-
-  public capabilities = [
-    {
-      title: 'UI Systems',
-      description: 'Reusable components, design tokens, and polished states that keep products coherent.',
-    },
-    {
-      title: 'Storytelling Layouts',
-      description: 'Landing pages and product surfaces with rhythm, tension, and clear visual pacing.',
-    },
-    {
-      title: 'Product Thinking',
-      description: 'Interfaces built around real flows, sensible prioritization, and user confidence.',
-    },
-  ];
-
-  public timeline = [
-    {
-      year: '01',
-      title: 'Design-aware frontend',
-      copy: 'Turning references and rough ideas into responsive interfaces with a strong visual point of view.',
-    },
-    {
-      year: '02',
-      title: 'API-connected products',
-      copy: 'Building features that move beyond static layouts: data, auth flows, dashboards, and stateful UI.',
-    },
-    {
-      year: '03',
-      title: 'Performance and finish',
-      copy: 'Refining load behavior, transitions, and layout systems so the final result feels intentional.',
-    },
-  ];
-
-  public projects = [
-    {
-      name: 'BeatLine',
-      description: 'A music game inspired by Hitster where a random song plays and you have to place it in the right date range.',
-      img: 'assets/img/beatLine.webp',
-      href: 'https://beatline-music.netlify.app/',
-      tags: ['Music Game', 'Timeline', 'Party Game'],
-    },
-    // {
-    //   name: 'WeatherApp',
-    //   description: 'Forecasts, recommendations, and visual weather states with a cleaner interaction layer.',
-    //   img: 'assets/img/weather.webp',
-    //   route: 'weather',
-    //   tags: ['Live API', 'Responsive', 'UI polish'],
-    // },
-    // {
-    //   name: 'Taskify',
-    //   description: 'Task management flow with authentication, backend integration, and dashboard logic.',
-    //   img: 'assets/img/taskify.webp',
-    //   route: 'auth',
-    //   tags: ['Angular', 'NestJS', 'Auth'],
-    // },
-    // {
-    //   name: 'Flags Explorer',
-    //   description: 'A searchable flag browser focused on speed, filtering, and approachable navigation.',
-    //   img: 'assets/img/flags.webp',
-    //   route: 'flags',
-    //   tags: ['Filters', 'UX', 'Data'],
-    // },
-    {
-      name: 'Maps',
-      description: 'Map-based interactions with smooth navigation and a more exploratory product feel.',
-      img: 'assets/img/maps.webp',
-      route: 'maps',
-      tags: ['Mapbox', 'Interaction', 'Frontend'],
-    },
-  ];
-
-  public contactLinks = [
-    { label: 'LinkedIn', value: 'sergiiosanz10', href: 'https://www.linkedin.com/in/sergiiosanz10/', icon: 'fa-brands fa-linkedin-in' },
-    { label: 'GitHub', value: 'sergiosanzg', href: 'https://github.com/sergiosanzg', icon: 'fa-brands fa-github' },
-  ];
-
-  constructor(private customCursor: CustomCursorComponent) {}
-
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.observeSections();
     this.observeReveals();
     this.updateScrollState();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.sectionObserver?.disconnect();
     this.revealObserver?.disconnect();
   }
 
   @HostListener('window:scroll')
-  onWindowScroll(): void {
+  public onWindowScroll(): void {
     this.updateScrollState();
   }
 
@@ -198,14 +105,6 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
           this.isLoading = false;
         },
       );
-  }
-
-  public onMouseEnter(): void {
-    this.customCursor.setIsHovered(true);
-  }
-
-  public onMouseLeave(): void {
-    this.customCursor.setIsHovered(false);
   }
 
   public scrollToContact(): void {

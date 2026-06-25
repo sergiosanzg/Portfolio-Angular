@@ -1,0 +1,74 @@
+<section class="contact-section" id="contact">
+  <div class="contact-shell">
+    <div class="contact-copy" data-reveal>
+      <span class="eyebrow">Contact</span>
+      <h2>Let the portfolio open with impact and close with a clear next step.</h2>
+      <p>
+        If you want a portfolio, landing page, or product UI with stronger visual
+        presence and cleaner motion, we can build it together.
+      </p>
+
+      <div class="contact-links">
+        @for (link of contactLinks; track link.href) {
+        <a
+          class="contact-link"
+          [href]="link.href"
+          target="_blank"
+          rel="noreferrer"
+          (mouseenter)="onMouseEnter()"
+          (mouseleave)="onMouseLeave()"
+        >
+          <span class="contact-link-brand">
+            <i [class]="link.icon" aria-hidden="true"></i>
+            <strong>{{ link.label }}</strong>
+          </span>
+          <span class="contact-link-handle">{{ link.value }}</span>
+        </a>
+        }
+      </div>
+    </div>
+
+    <div class="contact-form-panel" data-reveal>
+      <div class="form-header">
+        <span class="panel-label">Direct Message</span>
+        <h3>Share the brief and I will get back to you quickly.</h3>
+      </div>
+
+      <form
+        class="form-grid"
+        (submit)="formSubmit.emit($event)"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()"
+      >
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="user_name" placeholder="Your name" required />
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="user_email" placeholder="you@email.com" required />
+        </label>
+        <label class="field full">
+          <span>Message</span>
+          <textarea name="message" placeholder="Tell me what you want to build" required></textarea>
+        </label>
+        <button class="btn primary submit" type="submit" [disabled]="isLoading">
+          {{ isLoading ? 'Sending...' : 'Send Message' }}
+        </button>
+      </form>
+
+      @if (statusMessage) {
+      <div class="form-status">
+        <div class="status-pill" [class.success]="statusType === 'success'" [class.error]="statusType === 'error'" [class.info]="statusType === 'info'">
+          @if (isLoading) {
+          <span class="status-spinner">
+            <shared-loadging-spiner></shared-loadging-spiner>
+          </span>
+          }
+          <span>{{ statusMessage }}</span>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

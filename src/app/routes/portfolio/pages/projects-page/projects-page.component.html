@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row row-cols-1 row-cols-md-2 g-4 mt-2 mb-5">
-    <div class="col" *ngFor="let project of projects">
+    @for (project of projects; track project.name) {
+    <div class="col">
       <mat-card class="border border-black rounded-0 p-2 project d-flex flex-column h-100">
         <mat-card-title class="card-title">{{ project.name }}</mat-card-title>
         <mat-card-subtitle class="mb-2 flex-grow-1">{{ project.description }}</mat-card-subtitle>
@@ -14,5 +15,6 @@
         </mat-card-actions>
       </mat-card>
     </div>
+    }
   </div>
 </div>

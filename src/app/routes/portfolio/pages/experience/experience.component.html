@@ -30,7 +30,8 @@
       </div>
 
       <div class="timeline">
-        <div class="timeline-item" *ngFor="let item of timelineData; let i = index" [class.right]="i % 2 !== 0">
+        @for (item of timelineData; track item.year; let i = $index) {
+        <div class="timeline-item" [class.right]="i % 2 !== 0">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <h6>{{ item.year }}</h6>
@@ -43,6 +44,7 @@
             </div>
           </div>
         </div>
+        }
       </div>
 
       <div class="d-flex justify-content-center mt-5">

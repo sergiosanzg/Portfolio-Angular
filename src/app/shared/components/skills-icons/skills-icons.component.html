@@ -1,3 +1,5 @@
 <div class="skills">
-  <img *ngFor="let skill of skills" class="icons" [src]="skill.img" [alt]="skill.alt" [matTooltip]="skill.title" matTooltipPosition="above" draggable="false">
+  @for (skill of skills; track skill.title) {
+  <img class="icons" [src]="skill.img" [alt]="skill.alt" [matTooltip]="skill.title" matTooltipPosition="above" draggable="false">
+  }
 </div>

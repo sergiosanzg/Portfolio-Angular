@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CustomCursorComponent } from '../../../../shared/components/custom-cursor/cursor-component';
-
-
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-skills-page',
+  standalone: true,
+  imports: [RouterLink, MatCardModule],
   templateUrl: './projects-page.component.html',
-  styleUrl: './projects-page.component.scss'
+  styleUrl: './projects-page.component.scss',
 })
 export class ProjectsPageComponent {
-
   public projects = [
     {
       name: 'WeatherApp',
@@ -45,19 +46,17 @@ export class ProjectsPageComponent {
       name: 'TaskList',
       description: 'This is an application to organize tasks.',
       img: '../../../../assets/img/task.webp',
-      route: 'tasks'
+      route: 'tasks',
     },
-  ]
+  ];
 
-  constructor(private customCursor: CustomCursorComponent) { }
+  constructor(private customCursor: CustomCursorComponent) {}
 
-
-
-  onMouseEnter() {
+  public onMouseEnter(): void {
     this.customCursor.setIsHovered(true);
   }
 
-  onMouseLeave() {
+  public onMouseLeave(): void {
     this.customCursor.setIsHovered(false);
   }
 }

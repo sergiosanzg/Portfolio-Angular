@@ -1,0 +1,42 @@
+<section class="hero">
+  <div class="hero-backdrop"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-shell">
+    <div class="hero-copy" data-reveal>
+      <span class="eyebrow">Sergio Sanz Front-end Developer</span>
+      <h1>Bold portfolio storytelling with product-minded execution.</h1>
+      <p class="lead">
+        {{ text }} and I build immersive interfaces that still feel sharp, fast,
+        and usable when the visuals settle.
+      </p>
+
+      <div class="cta-row">
+        <button class="btn primary" type="button" (click)="projectsClick.emit()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">Explore Work</button>
+        <button class="btn ghost" type="button" (click)="contactClick.emit()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">Start a Conversation</button>
+      </div>
+
+      <div class="hero-signal">
+        <span>Available for freelance, product, and UI-focused collaborations.</span>
+      </div>
+    </div>
+
+    <aside class="hero-panel" data-reveal>
+      <div class="hero-panel-media">
+        <img src="assets/img/foto2.webp" alt="Portrait of Sergio Sanz" draggable="false" />
+      </div>
+      <div class="hero-panel-copy">
+        <span class="panel-label">Now Playing</span>
+        <h2>Angular, TypeScript, Sass, and a strong eye for motion and layout.</h2>
+        <div class="skill-list">
+          @for (skill of skills; track skill.name) {
+          <div class="skill-pill">
+            <img [src]="skill.icon" [alt]="skill.name + ' logo'" draggable="false" />
+            <span>{{ skill.name }}</span>
+          </div>
+          }
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>

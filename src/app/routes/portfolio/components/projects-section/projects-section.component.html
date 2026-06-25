@@ -1,0 +1,38 @@
+<section class="projects-section" id="projects">
+  <div class="section-intro" data-reveal>
+    <span class="eyebrow">Projects</span>
+    <h2>Selected builds presented like feature drops, not a flat grid of links.</h2>
+  </div>
+
+  <div class="projects-stack">
+    @for (project of projects; track project.name; let i = $index) {
+    <a
+      class="project-card"
+      [routerLink]="project.route ? ['/portfolio', 'projects', project.route] : null"
+      [href]="project.href || null"
+      [attr.target]="project.href ? '_blank' : null"
+      [attr.rel]="project.href ? 'noreferrer' : null"
+      [style.--delay]="i * 110 + 'ms'"
+      data-reveal
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseLeave()"
+    >
+      <div class="project-image">
+        <img [src]="project.img" [alt]="project.name + ' preview'" draggable="false" />
+      </div>
+      <div class="project-copy">
+        <span class="project-index">0{{ i + 1 }}</span>
+        <div>
+          <h3>{{ project.name }}</h3>
+          <p>{{ project.description }}</p>
+        </div>
+        <div class="pill-row">
+          @for (tag of project.tags; track tag) {
+          <span class="pill">{{ tag }}</span>
+          }
+        </div>
+      </div>
+    </a>
+    }
+  </div>
+</section>
