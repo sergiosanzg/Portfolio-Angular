@@ -99,7 +99,7 @@ export class AuthService {
     sessionStorage.removeItem('token');
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.noAuthenticated);
-    this.router.navigate(['/portfolio/projects/auth/login']);
+    this.router.navigate(['/projects/auth/login']);
   }
 
 

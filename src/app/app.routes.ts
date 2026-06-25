@@ -2,13 +2,8 @@ import { Routes } from '@angular/router';
 
 export const appRoutes: Routes = [
   {
-    path: 'portfolio',
-    loadChildren: () => import('./routes/portfolio/portfolio.routes').then((m) => m.PORTFOLIO_ROUTES),
-  },
-  {
     path: '',
-    redirectTo: 'portfolio',
-    pathMatch: 'full',
+    loadChildren: () => import('./routes/portfolio/portfolio.routes').then((m) => m.PORTFOLIO_ROUTES),
   },
   {
     path: '**',
