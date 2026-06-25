@@ -6,12 +6,12 @@
 
   <div class="projects-stack">
     @for (project of projects; track project.name; let i = $index) {
+    @if (project.href) {
     <a
       class="project-card"
-      [routerLink]="project.route ? ['/portfolio', 'projects', project.route] : null"
-      [href]="project.href || null"
-      [attr.target]="project.href ? '_blank' : null"
-      [attr.rel]="project.href ? 'noreferrer' : null"
+      [href]="project.href"
+      target="_blank"
+      rel="noreferrer"
       [style.--delay]="i * 110 + 'ms'"
       data-reveal
       (mouseenter)="onMouseEnter()"
@@ -33,6 +33,32 @@
         </div>
       </div>
     </a>
+    } @else if (project.route) {
+    <a
+      class="project-card"
+      [routerLink]="['/portfolio', 'projects', project.route]"
+      [style.--delay]="i * 110 + 'ms'"
+      data-reveal
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseLeave()"
+    >
+      <div class="project-image">
+        <img [src]="project.img" [alt]="project.name + ' preview'" draggable="false" />
+      </div>
+      <div class="project-copy">
+        <span class="project-index">0{{ i + 1 }}</span>
+        <div>
+          <h3>{{ project.name }}</h3>
+          <p>{{ project.description }}</p>
+        </div>
+        <div class="pill-row">
+          @for (tag of project.tags; track tag) {
+          <span class="pill">{{ tag }}</span>
+          }
+        </div>
+      </div>
+    </a>
+    }
     }
   </div>
 </section>
