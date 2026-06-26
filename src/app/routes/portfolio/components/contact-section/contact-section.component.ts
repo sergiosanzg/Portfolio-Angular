@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CustomCursorComponent } from '../../../../shared/components/custom-cursor/cursor-component';
 import { SharedModule } from '../../../../shared/shared.module';
-import { ContactLinkItem } from '../../models/home-page.models';
+import { ContactLinkItem, ContactSectionContent } from '../../models/home-page.models';
 
 @Component({
   selector: 'portfolio-contact-section',
@@ -12,6 +12,7 @@ import { ContactLinkItem } from '../../models/home-page.models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactSectionComponent {
+  @Input() public content!: ContactSectionContent;
   @Input() public contactLinks: ContactLinkItem[] = [];
   @Input() public isLoading = false;
   @Input() public statusMessage: string | null = null;

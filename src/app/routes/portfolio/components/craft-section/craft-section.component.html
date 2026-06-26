@@ -1,11 +1,11 @@
 <section class="craft-section" id="experience">
   <div class="section-intro" data-reveal>
-    <span class="eyebrow">Craft</span>
-    <h2>How the work holds together once the visuals have your attention.</h2>
+    <span class="eyebrow">{{ content.eyebrow }}</span>
+    <h2>{{ content.title }}</h2>
   </div>
 
   <div class="craft-grid">
-    @for (item of capabilities; track item.title; let i = $index) {
+    @for (item of capabilities; track i; let i = $index) {
     <div class="capability-card" [style.--delay]="i * 120 + 'ms'" data-reveal>
       <span class="card-count">0{{ i + 1 }}</span>
       <h3>{{ item.title }}</h3>
@@ -15,7 +15,7 @@
   </div>
 
   <div class="timeline-grid">
-    @for (step of timeline; track step.title; let i = $index) {
+    @for (step of timeline; track i; let i = $index) {
     <article class="timeline-card" [style.--delay]="i * 100 + 'ms'" data-reveal>
       <span class="timeline-index">{{ step.year }}</span>
       <div>

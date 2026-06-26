@@ -1,22 +1,17 @@
 import { AfterViewInit, Component, HostListener, OnDestroy } from '@angular/core';
 import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
 import { environment } from '../../../../../environments/environment';
-import { DEF_ABOUT_SHORT_TEXT } from '../../../../core/globalConst';
 import { ContactSectionComponent } from '../../components/contact-section/contact-section.component';
 import { CraftSectionComponent } from '../../components/craft-section/craft-section.component';
 import { HeroSectionComponent } from '../../components/hero-section/hero-section.component';
 import { ProjectsSectionComponent } from '../../components/projects-section/projects-section.component';
 import { StorySectionComponent } from '../../components/story-section/story-section.component';
 import {
-  HOME_CAPABILITIES,
   HOME_CONTACT_LINKS,
-  HOME_PROJECTS,
+  HOME_DICTIONARY,
   HOME_SKILLS,
-  HOME_STATS,
-  HOME_STORY_PANELS,
-  HOME_TIMELINE,
 } from '../../data/home-page.data';
-import { SectionId } from '../../models/home-page.models';
+import { HomePageDictionary, PortfolioLanguage, SectionId } from '../../models/home-page.models';
 
 @Component({
   selector: 'app-home-page',
@@ -32,7 +27,7 @@ import { SectionId } from '../../models/home-page.models';
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent implements AfterViewInit, OnDestroy {
-  public text: string = DEF_ABOUT_SHORT_TEXT;
+  public language: PortfolioLanguage = this.getInitialLanguage();
   public isLoading = false;
   public statusMessage: string | null = null;
   public statusType: 'success' | 'error' | 'info' | null = null;
@@ -41,11 +36,6 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   public backgroundDrift = 0;
   public showScrollTop = false;
   public readonly skills = HOME_SKILLS;
-  public readonly storyPanels = HOME_STORY_PANELS;
-  public readonly stats = HOME_STATS;
-  public readonly capabilities = HOME_CAPABILITIES;
-  public readonly timeline = HOME_TIMELINE;
-  public readonly projects = HOME_PROJECTS;
   public readonly contactLinks = HOME_CONTACT_LINKS;
 
   private sectionObserver?: IntersectionObserver;
@@ -70,9 +60,10 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   public sendEmail(e: Event): void {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
+    const messages = this.content.statusMessages;
 
     if (!environment.apiKey) {
-      this.setStatus('Missing EmailJS public key in environment.', 'error');
+      this.setStatus(messages.missingApiKey, 'error');
       return;
     }
 
@@ -81,12 +72,12 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     const timeSinceLastEmail = now - (lastEmailSentAt || 0);
 
     if (timeSinceLastEmail < 30000) {
-      this.setStatus('Please wait a bit before sending another message.', 'info');
+      this.setStatus(messages.waitBeforeRetry, 'info');
       return;
     }
 
     this.isLoading = true;
-    this.setStatus('Sending message...', 'info');
+    this.setStatus(messages.sending, 'info');
 
     emailjs
       .sendForm('service_odp144d', 'template_bf3ksfr', form, {
@@ -95,16 +86,33 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
       .then(
         () => {
           document.cookie = `lastEmailSentAt=${Date.now()}; path=/`;
-          this.setStatus('Message sent successfully. Thank you!', 'success');
+          this.setStatus(messages.success, 'success');
           this.isLoading = false;
           form.reset();
         },
         (error) => {
           console.log('FAILED...', (error as EmailJSResponseStatus).text);
-          this.setStatus('Failed to send. Please try again later.', 'error');
+          this.setStatus(messages.error, 'error');
           this.isLoading = false;
         },
       );
+  }
+
+  public setLanguage(language: PortfolioLanguage): void {
+    if (this.language === language) {
+      return;
+    }
+
+    this.language = language;
+    localStorage.setItem('portfolio-language', language);
+    this.statusMessage = null;
+    this.statusType = null;
+
+    this.revealObserver?.disconnect();
+    requestAnimationFrame(() => {
+      this.observeReveals();
+      this.updateScrollState();
+    });
   }
 
   public scrollToContact(): void {
@@ -126,6 +134,30 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   public scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     this.activeSection = null;
+  }
+
+  public get content(): HomePageDictionary {
+    return HOME_DICTIONARY[this.language];
+  }
+
+  public get storyPanels() {
+    return this.content.storyPanels;
+  }
+
+  public get stats() {
+    return this.content.stats;
+  }
+
+  public get capabilities() {
+    return this.content.capabilities;
+  }
+
+  public get timeline() {
+    return this.content.timeline;
+  }
+
+  public get projects() {
+    return this.content.projects;
   }
 
   private observeSections(): void {
@@ -223,6 +255,15 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   private setStatus(message: string, type: 'success' | 'error' | 'info'): void {
     this.statusMessage = message;
     this.statusType = type;
+  }
+
+  private getInitialLanguage(): PortfolioLanguage {
+    const savedLanguage = localStorage.getItem('portfolio-language');
+    if (savedLanguage === 'es' || savedLanguage === 'en') {
+      return savedLanguage;
+    }
+
+    return 'en';
   }
 
   private getCookie(name: string): number | null {

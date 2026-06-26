@@ -4,30 +4,29 @@
 
   <div class="hero-shell">
     <div class="hero-copy" data-reveal>
-      <span class="eyebrow">Sergio Sanz Front-end Developer</span>
-      <h1>Bold portfolio storytelling with product-minded execution.</h1>
+      <span class="eyebrow">{{ content.eyebrow }}</span>
+      <h1>{{ content.title }}</h1>
       <p class="lead">
-        {{ text }} and I build immersive interfaces that still feel sharp, fast,
-        and usable when the visuals settle.
+        {{ content.leadPrefix }} {{ content.leadSuffix }}
       </p>
 
       <div class="cta-row">
-        <button class="btn primary" type="button" (click)="projectsClick.emit()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">Explore Work</button>
-        <button class="btn ghost" type="button" (click)="contactClick.emit()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">Start a Conversation</button>
+        <button class="btn primary" type="button" (click)="projectsClick.emit()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">{{ content.primaryCta }}</button>
+        <button class="btn ghost" type="button" (click)="contactClick.emit()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">{{ content.secondaryCta }}</button>
       </div>
 
       <div class="hero-signal">
-        <span>Available for freelance, product, and UI-focused collaborations.</span>
+        <span>{{ content.availability }}</span>
       </div>
     </div>
 
     <aside class="hero-panel" data-reveal>
       <div class="hero-panel-media">
-        <img src="assets/img/foto2.webp" alt="Portrait of Sergio Sanz" draggable="false" />
+        <img src="assets/img/foto2.webp" [alt]="content.portraitAlt" draggable="false" />
       </div>
       <div class="hero-panel-copy">
-        <span class="panel-label">Now Playing</span>
-        <h2>Angular, TypeScript, Sass, and a strong eye for motion and layout.</h2>
+        <span class="panel-label">{{ content.panelLabel }}</span>
+        <h2>{{ content.panelTitle }}</h2>
         <div class="skill-list">
           @for (skill of skills; track skill.name) {
           <div class="skill-pill">

@@ -1,22 +1,19 @@
 <section class="story-section" id="about">
   <div class="section-intro" data-reveal>
-    <span class="eyebrow">Profile</span>
-    <h2>A cinematic surface with a reliable build underneath.</h2>
+    <span class="eyebrow">{{ content.eyebrow }}</span>
+    <h2>{{ content.title }}</h2>
   </div>
 
   <div class="story-layout">
     <div class="story-stage" data-reveal>
       <div class="stage-card">
-        <span class="stage-kicker">Visual Direction</span>
-        <h3>Inspired by premium campaign pages: layered media, deep contrast, and guided scroll.</h3>
-        <p>
-          The goal is not imitation for its own sake. It is using that same sense of
-          momentum to present your work like a product launch.
-        </p>
+        <span class="stage-kicker">{{ content.stageKicker }}</span>
+        <h3>{{ content.stageTitle }}</h3>
+        <p>{{ content.stageCopy }}</p>
       </div>
 
       <div class="stats-strip">
-        @for (stat of stats; track stat.label) {
+        @for (stat of stats; track i; let i = $index) {
         <div class="stat-card">
           <strong>{{ stat.value }}</strong>
           <span>{{ stat.label }}</span>
@@ -26,7 +23,7 @@
     </div>
 
     <div class="story-rail">
-      @for (panel of storyPanels; track panel.title; let i = $index) {
+      @for (panel of storyPanels; track i; let i = $index) {
       <article class="story-panel" [attr.data-tone]="panel.tone" [style.--delay]="i * 120 + 'ms'" data-reveal>
         <span class="story-kicker">{{ panel.kicker }}</span>
         <h3>{{ panel.title }}</h3>

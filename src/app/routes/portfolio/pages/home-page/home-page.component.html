@@ -4,14 +4,32 @@
   [style.--background-drift]="backgroundDrift"
 >
   <nav class="chip-nav" data-reveal>
-    <button class="chip" [class.active]="activeSection === 'about'" type="button" (click)="scrollToAbout()">Profile</button>
-    <button class="chip" [class.active]="activeSection === 'experience'" type="button" (click)="scrollToExperience()">Craft</button>
-    <button class="chip" [class.active]="activeSection === 'projects'" type="button" (click)="scrollToProjects()">Projects</button>
-    <button class="chip" [class.active]="activeSection === 'contact'" type="button" (click)="scrollToContact()">Contact</button>
+    <button class="chip" [class.active]="activeSection === 'about'" type="button" (click)="scrollToAbout()">{{ content.nav.about }}</button>
+    <button class="chip" [class.active]="activeSection === 'experience'" type="button" (click)="scrollToExperience()">{{ content.nav.experience }}</button>
+    <button class="chip" [class.active]="activeSection === 'projects'" type="button" (click)="scrollToProjects()">{{ content.nav.projects }}</button>
+    <button class="chip" [class.active]="activeSection === 'contact'" type="button" (click)="scrollToContact()">{{ content.nav.contact }}</button>
+
+    <div class="language-switcher" aria-label="Language selector">
+      @if (language === 'es') {
+      <button
+        class="flag-btn flag-en"
+        type="button"
+        aria-label="Switch language to English"
+        (click)="setLanguage('en')"
+      ></button>
+      } @else {
+      <button
+        class="flag-btn flag-es"
+        type="button"
+        aria-label="Cambiar idioma a espanol"
+        (click)="setLanguage('es')"
+      ></button>
+      }
+    </div>
   </nav>
 
   <portfolio-hero-section
-    [text]="text"
+    [content]="content.hero"
     [skills]="skills"
     [heroProgress]="heroProgress"
     (projectsClick)="scrollToProjects()"
@@ -19,20 +37,24 @@
   ></portfolio-hero-section>
 
   <portfolio-story-section
+    [content]="content.storySection"
     [stats]="stats"
     [storyPanels]="storyPanels"
   ></portfolio-story-section>
 
   <portfolio-craft-section
+    [content]="content.craftSection"
     [capabilities]="capabilities"
     [timeline]="timeline"
   ></portfolio-craft-section>
 
   <portfolio-projects-section
+    [content]="content.projectsSection"
     [projects]="projects"
   ></portfolio-projects-section>
 
   <portfolio-contact-section
+    [content]="content.contactSection"
     [contactLinks]="contactLinks"
     [isLoading]="isLoading"
     [statusMessage]="statusMessage"
@@ -45,7 +67,7 @@
     type="button"
     [class.is-visible]="showScrollTop"
     [attr.aria-hidden]="!showScrollTop"
-    aria-label="Back to top"
+    [attr.aria-label]="language === 'es' ? 'Volver arriba' : 'Back to top'"
     (click)="scrollToTop()"
   >
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>

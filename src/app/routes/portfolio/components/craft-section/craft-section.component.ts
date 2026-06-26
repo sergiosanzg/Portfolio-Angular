@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CapabilityItem, TimelineStepItem } from '../../models/home-page.models';
+import { CapabilityItem, CraftSectionContent, TimelineStepItem } from '../../models/home-page.models';
 
 @Component({
   selector: 'portfolio-craft-section',
@@ -9,6 +9,7 @@ import { CapabilityItem, TimelineStepItem } from '../../models/home-page.models'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CraftSectionComponent {
+  @Input() public content!: CraftSectionContent;
   @Input() public capabilities: CapabilityItem[] = [];
   @Input() public timeline: TimelineStepItem[] = [];
 }

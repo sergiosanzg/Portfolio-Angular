@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CustomCursorComponent } from '../../../../shared/components/custom-cursor/cursor-component';
-import { SkillItem } from '../../models/home-page.models';
+import { HeroContent, SkillItem } from '../../models/home-page.models';
 
 @Component({
   selector: 'portfolio-hero-section',
@@ -10,7 +10,7 @@ import { SkillItem } from '../../models/home-page.models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroSectionComponent {
-  @Input() public text = '';
+  @Input() public content!: HeroContent;
   @Input() public skills: SkillItem[] = [];
   @Input() public heroProgress = 0;
   @Output() public projectsClick = new EventEmitter<void>();

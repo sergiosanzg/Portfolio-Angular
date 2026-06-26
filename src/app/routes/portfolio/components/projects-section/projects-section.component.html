@@ -1,11 +1,11 @@
 <section class="projects-section" id="projects">
   <div class="section-intro" data-reveal>
-    <span class="eyebrow">Projects</span>
-    <h2>Selected builds presented like feature drops, not a flat grid of links.</h2>
+    <span class="eyebrow">{{ content.eyebrow }}</span>
+    <h2>{{ content.title }}</h2>
   </div>
 
   <div class="projects-stack">
-    @for (project of projects; track project.name; let i = $index) {
+    @for (project of projects; track i; let i = $index) {
     @if (project.href) {
     <a
       class="project-card"
@@ -18,7 +18,7 @@
       (mouseleave)="onMouseLeave()"
     >
       <div class="project-image">
-        <img [src]="project.img" [alt]="project.name + ' preview'" draggable="false" />
+        <img [src]="project.img" [alt]="project.name + ' ' + content.previewAltSuffix" draggable="false" />
       </div>
       <div class="project-copy">
         <span class="project-index">0{{ i + 1 }}</span>
@@ -27,7 +27,7 @@
           <p>{{ project.description }}</p>
         </div>
         <div class="pill-row">
-          @for (tag of project.tags; track tag) {
+          @for (tag of project.tags; track tagIndex; let tagIndex = $index) {
           <span class="pill">{{ tag }}</span>
           }
         </div>
@@ -43,7 +43,7 @@
       (mouseleave)="onMouseLeave()"
     >
       <div class="project-image">
-        <img [src]="project.img" [alt]="project.name + ' preview'" draggable="false" />
+        <img [src]="project.img" [alt]="project.name + ' ' + content.previewAltSuffix" draggable="false" />
       </div>
       <div class="project-copy">
         <span class="project-index">0{{ i + 1 }}</span>
@@ -52,7 +52,7 @@
           <p>{{ project.description }}</p>
         </div>
         <div class="pill-row">
-          @for (tag of project.tags; track tag) {
+          @for (tag of project.tags; track tagIndex; let tagIndex = $index) {
           <span class="pill">{{ tag }}</span>
           }
         </div>

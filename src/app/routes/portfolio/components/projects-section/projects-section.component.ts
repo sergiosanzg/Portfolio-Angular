@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CustomCursorComponent } from '../../../../shared/components/custom-cursor/cursor-component';
-import { ProjectItem } from '../../models/home-page.models';
+import { ProjectItem, ProjectsSectionContent } from '../../models/home-page.models';
 
 @Component({
   selector: 'portfolio-projects-section',
@@ -12,6 +12,7 @@ import { ProjectItem } from '../../models/home-page.models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsSectionComponent {
+  @Input() public content!: ProjectsSectionContent;
   @Input() public projects: ProjectItem[] = [];
 
   constructor(private customCursor: CustomCursorComponent) {}

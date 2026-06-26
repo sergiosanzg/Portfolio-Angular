@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { StatItem, StoryPanelItem } from '../../models/home-page.models';
+import { StatItem, StoryPanelItem, StorySectionContent } from '../../models/home-page.models';
 
 @Component({
   selector: 'portfolio-story-section',
@@ -9,6 +9,7 @@ import { StatItem, StoryPanelItem } from '../../models/home-page.models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StorySectionComponent {
+  @Input() public content!: StorySectionContent;
   @Input() public stats: StatItem[] = [];
   @Input() public storyPanels: StoryPanelItem[] = [];
 }
