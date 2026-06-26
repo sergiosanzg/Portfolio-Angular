@@ -65,6 +65,12 @@ $Portfolio-theme: mat.define-light-theme(
 * {
   margin: 0;
   padding: 0 auto;
+}
+
+.custom-cursor-active,
+.custom-cursor-active *,
+.custom-cursor-active *::before,
+.custom-cursor-active *::after {
   cursor: none !important;
 }
 
