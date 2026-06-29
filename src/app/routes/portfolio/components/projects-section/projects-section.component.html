@@ -18,7 +18,7 @@
       (mouseleave)="onMouseLeave()"
     >
       <div class="project-image">
-        <img [src]="project.img" [alt]="project.name + ' ' + content.previewAltSuffix" draggable="false" />
+        <img [src]="project.img" [alt]="project.name + ' ' + content.previewAltSuffix" draggable="false" loading="lazy" decoding="async" />
       </div>
       <div class="project-copy">
         <span class="project-index">0{{ i + 1 }}</span>
@@ -43,7 +43,7 @@
       (mouseleave)="onMouseLeave()"
     >
       <div class="project-image">
-        <img [src]="project.img" [alt]="project.name + ' ' + content.previewAltSuffix" draggable="false" />
+        <img [src]="project.img" [alt]="project.name + ' ' + content.previewAltSuffix" draggable="false" loading="lazy" decoding="async" />
       </div>
       <div class="project-copy">
         <span class="project-index">0{{ i + 1 }}</span>

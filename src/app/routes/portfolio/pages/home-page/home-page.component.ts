@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, HostListener, OnDestroy } from '@angular/core';
-import emailjs, { type EmailJSResponseStatus } from '@emailjs/browser';
+import { DOCUMENT } from '@angular/common';
+import { AfterViewInit, Component, HostListener, Inject, OnDestroy } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { environment } from '../../../../../environments/environment';
 import { ContactSectionComponent } from '../../components/contact-section/contact-section.component';
 import { CraftSectionComponent } from '../../components/craft-section/craft-section.component';
@@ -41,10 +42,17 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   private sectionObserver?: IntersectionObserver;
   private revealObserver?: IntersectionObserver;
 
+  constructor(
+    private title: Title,
+    private meta: Meta,
+    @Inject(DOCUMENT) private document: Document,
+  ) {}
+
   public ngAfterViewInit(): void {
     this.observeSections();
     this.observeReveals();
     this.updateScrollState();
+    this.updateSeo();
   }
 
   public ngOnDestroy(): void {
@@ -79,19 +87,21 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     this.isLoading = true;
     this.setStatus(messages.sending, 'info');
 
-    emailjs
-      .sendForm('service_odp144d', 'template_bf3ksfr', form, {
-        publicKey: environment.apiKey,
-      })
+    import('@emailjs/browser')
+      .then(({ default: emailjs }) =>
+        emailjs.sendForm('service_odp144d', 'template_bf3ksfr', form, {
+          publicKey: environment.apiKey,
+        }),
+      )
       .then(
         () => {
-          document.cookie = `lastEmailSentAt=${Date.now()}; path=/`;
+          this.document.cookie = `lastEmailSentAt=${Date.now()}; path=/`;
           this.setStatus(messages.success, 'success');
           this.isLoading = false;
           form.reset();
         },
-        (error) => {
-          console.log('FAILED...', (error as EmailJSResponseStatus).text);
+        (error: { text?: string }) => {
+          console.log('FAILED...', error.text);
           this.setStatus(messages.error, 'error');
           this.isLoading = false;
         },
@@ -107,6 +117,7 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     localStorage.setItem('portfolio-language', language);
     this.statusMessage = null;
     this.statusType = null;
+    this.updateSeo();
 
     this.revealObserver?.disconnect();
     requestAnimationFrame(() => {
@@ -257,6 +268,79 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     this.statusType = type;
   }
 
+  private updateSeo(): void {
+    const isSpanish = this.language === 'es';
+    const pageTitle = isSpanish
+      ? 'Sergio Sanz | Desarrollador Front-end Angular'
+      : 'Sergio Sanz | Angular Front-end Developer';
+    const description = isSpanish
+      ? 'Portfolio de Sergio Sanz, desarrollador front-end especializado en Angular, TypeScript y experiencias web rapidas, visuales y orientadas a producto.'
+      : 'Portfolio of Sergio Sanz, a front-end developer focused on Angular, TypeScript, and fast, polished product-minded web experiences.';
+    const locale = isSpanish ? 'es_ES' : 'en_US';
+    const origin = this.document.location?.origin ?? '';
+    const canonicalUrl = `${origin}/`;
+    const imageUrl = `${origin}/assets/img/foto2.webp`;
+
+    this.title.setTitle(pageTitle);
+    this.document.documentElement.lang = this.language;
+
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+    this.meta.updateTag({ name: 'theme-color', content: '#1b0d1d' });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:title', content: pageTitle });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:url', content: canonicalUrl });
+    this.meta.updateTag({ property: 'og:locale', content: locale });
+    this.meta.updateTag({ property: 'og:image', content: imageUrl });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:title', content: pageTitle });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.meta.updateTag({ name: 'twitter:image', content: imageUrl });
+
+    this.updateCanonicalLink(canonicalUrl);
+    this.updateStructuredData(description, canonicalUrl, imageUrl);
+  }
+
+  private updateCanonicalLink(url: string): void {
+    let canonical = this.document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+
+    if (!canonical) {
+      canonical = this.document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      this.document.head.appendChild(canonical);
+    }
+
+    canonical.setAttribute('href', url);
+  }
+
+  private updateStructuredData(description: string, url: string, imageUrl: string): void {
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Sergio Sanz',
+      jobTitle: this.language === 'es' ? 'Desarrollador Front-end' : 'Front-end Developer',
+      description,
+      url,
+      image: imageUrl,
+      sameAs: [
+        'https://github.com/sergiosanzg',
+        'https://www.linkedin.com/in/sergiiosanz10/',
+      ],
+    };
+
+    let script = this.document.getElementById('portfolio-structured-data') as HTMLScriptElement | null;
+
+    if (!script) {
+      script = this.document.createElement('script');
+      script.id = 'portfolio-structured-data';
+      script.type = 'application/ld+json';
+      this.document.head.appendChild(script);
+    }
+
+    script.textContent = JSON.stringify(schema);
+  }
+
   private getInitialLanguage(): PortfolioLanguage {
     const savedLanguage = localStorage.getItem('portfolio-language');
     if (savedLanguage === 'es' || savedLanguage === 'en') {
@@ -267,7 +351,7 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   }
 
   private getCookie(name: string): number | null {
-    const value = `; ${document.cookie}`;
+    const value = `; ${this.document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) {
       const cookieValue = parts.pop()?.split(';').shift();

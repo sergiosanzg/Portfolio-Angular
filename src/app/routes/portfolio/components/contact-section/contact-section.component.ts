@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CustomCursorComponent } from '../../../../shared/components/custom-cursor/cursor-component';
-import { SharedModule } from '../../../../shared/shared.module';
+import { LoadgingSpinerComponent } from '../../../../shared/components/loadging-spiner/loadging-spiner.component';
 import { ContactLinkItem, ContactSectionContent } from '../../models/home-page.models';
 
 @Component({
   selector: 'portfolio-contact-section',
   standalone: true,
-  imports: [SharedModule],
+  imports: [LoadgingSpinerComponent],
   templateUrl: './contact-section.component.html',
   styleUrl: './contact-section.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

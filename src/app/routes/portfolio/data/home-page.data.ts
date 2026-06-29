@@ -104,8 +104,8 @@ export const HOME_PROJECTS: ProjectItem[] = [
 ];
 
 export const HOME_CONTACT_LINKS: ContactLinkItem[] = [
-  { label: 'LinkedIn', value: 'sergiiosanz10', href: 'https://www.linkedin.com/in/sergiiosanz10/', icon: 'fa-brands fa-linkedin-in' },
-  { label: 'GitHub', value: 'sergiosanzg', href: 'https://github.com/sergiosanzg', icon: 'fa-brands fa-github' },
+  { label: 'LinkedIn', value: 'sergiiosanz10', href: 'https://www.linkedin.com/in/sergiiosanz10/', icon: 'linkedin' },
+  { label: 'GitHub', value: 'sergiosanzg', href: 'https://github.com/sergiosanzg', icon: 'github' },
 ];
 
 export const HOME_DICTIONARY: Record<PortfolioLanguage, HomePageDictionary> = {

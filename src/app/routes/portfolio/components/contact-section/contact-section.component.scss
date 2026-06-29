@@ -84,7 +84,7 @@
   gap: 14px;
 }
 
-.contact-link-brand i {
+.contact-link-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -94,7 +94,12 @@
   background: rgba(255, 245, 223, 0.08);
   border: 1px solid rgba(255, 229, 174, 0.12);
   color: #ffbf5f;
-  font-size: 1.1rem;
+}
+
+.contact-link-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 .contact-link-brand strong,

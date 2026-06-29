@@ -1,4 +1,4 @@
-<div
+<main
   class="landing"
   [style.--hero-progress]="heroProgress"
   [style.--background-drift]="backgroundDrift"
@@ -70,6 +70,8 @@
     [attr.aria-label]="language === 'es' ? 'Volver arriba' : 'Back to top'"
     (click)="scrollToTop()"
   >
-    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    <svg class="scroll-top-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 5.5 5.5 12l1.4 1.4 4.1-4.08V19h2V9.32l4.1 4.08 1.4-1.4L12 5.5Z"></path>
+    </svg>
   </button>
-</div>
+</main>

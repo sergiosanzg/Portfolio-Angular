@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SharedModule } from './shared/shared.module';
+import { CustomCursorComponent } from './shared/components/custom-cursor/cursor-component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SharedModule],
+  imports: [RouterOutlet, CustomCursorComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

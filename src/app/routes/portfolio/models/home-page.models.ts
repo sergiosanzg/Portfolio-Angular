@@ -43,7 +43,7 @@ export interface ContactLinkItem {
   label: string;
   value: string;
   href: string;
-  icon: string;
+  icon: 'linkedin' | 'github';
 }
 
 export interface NavLabels {

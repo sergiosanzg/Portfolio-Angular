@@ -154,6 +154,12 @@
     visibility 220ms ease;
 }
 
+.scroll-top-icon {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
 .scroll-top-btn i {
   font-size: 1rem;
 }
@@ -237,4 +243,10 @@
     right: 16px;
     bottom: 88px;
   }
+}
+
+.scroll-top-icon {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
 }

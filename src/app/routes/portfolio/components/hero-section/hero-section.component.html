@@ -22,7 +22,14 @@
 
     <aside class="hero-panel" data-reveal>
       <div class="hero-panel-media">
-        <img src="assets/img/foto2.webp" [alt]="content.portraitAlt" draggable="false" />
+        <img
+          src="assets/img/foto2.webp"
+          [alt]="content.portraitAlt"
+          draggable="false"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
       </div>
       <div class="hero-panel-copy">
         <span class="panel-label">{{ content.panelLabel }}</span>
@@ -30,7 +37,7 @@
         <div class="skill-list">
           @for (skill of skills; track skill.name) {
           <div class="skill-pill">
-            <img [src]="skill.icon" [alt]="skill.name + ' logo'" draggable="false" />
+            <img [src]="skill.icon" [alt]="skill.name + ' logo'" draggable="false" loading="lazy" decoding="async" />
             <span>{{ skill.name }}</span>
           </div>
           }
