@@ -3,13 +3,56 @@
   [style.--hero-progress]="heroProgress"
   [style.--background-drift]="backgroundDrift"
 >
-  <nav class="chip-nav" data-reveal>
+  <nav class="chip-nav desktop-chip-nav" data-reveal>
     <button class="chip" [class.active]="activeSection === 'about'" type="button" (click)="scrollToAbout()">{{ content.nav.about }}</button>
     <button class="chip" [class.active]="activeSection === 'experience'" type="button" (click)="scrollToExperience()">{{ content.nav.experience }}</button>
     <button class="chip" [class.active]="activeSection === 'projects'" type="button" (click)="scrollToProjects()">{{ content.nav.projects }}</button>
     <button class="chip" [class.active]="activeSection === 'contact'" type="button" (click)="scrollToContact()">{{ content.nav.contact }}</button>
 
     <div class="language-switcher" aria-label="Language selector">
+      @if (language === 'es') {
+      <button
+        class="flag-btn flag-en"
+        type="button"
+        aria-label="Switch language to English"
+        (click)="setLanguage('en')"
+      ></button>
+      } @else {
+      <button
+        class="flag-btn flag-es"
+        type="button"
+        aria-label="Cambiar idioma a espanol"
+        (click)="setLanguage('es')"
+      ></button>
+      }
+    </div>
+  </nav>
+
+  <button
+    class="mobile-nav-trigger"
+    type="button"
+    [attr.aria-expanded]="isMobileNavOpen"
+    aria-controls="mobile-nav-sheet"
+    [attr.aria-label]="isMobileNavOpen ? (language === 'es' ? 'Cerrar menu' : 'Close menu') : (language === 'es' ? 'Abrir menu' : 'Open menu')"
+    (click)="toggleMobileNav()"
+  >
+    <span class="mobile-nav-trigger-text">{{ language === 'es' ? 'Menu' : 'Menu' }}</span>
+    <span class="mobile-nav-trigger-icon" [class.is-open]="isMobileNavOpen" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </button>
+
+  <div class="mobile-nav-backdrop" [class.is-open]="isMobileNavOpen" (click)="closeMobileNav()"></div>
+
+  <nav id="mobile-nav-sheet" class="mobile-nav-sheet" [class.is-open]="isMobileNavOpen" [attr.aria-hidden]="!isMobileNavOpen">
+    <button class="mobile-nav-link" [class.active]="activeSection === 'about'" type="button" (click)="scrollToAbout()">{{ content.nav.about }}</button>
+    <button class="mobile-nav-link" [class.active]="activeSection === 'experience'" type="button" (click)="scrollToExperience()">{{ content.nav.experience }}</button>
+    <button class="mobile-nav-link" [class.active]="activeSection === 'projects'" type="button" (click)="scrollToProjects()">{{ content.nav.projects }}</button>
+    <button class="mobile-nav-link" [class.active]="activeSection === 'contact'" type="button" (click)="scrollToContact()">{{ content.nav.contact }}</button>
+
+    <div class="mobile-language-switcher" aria-label="Language selector">
       @if (language === 'es') {
       <button
         class="flag-btn flag-en"

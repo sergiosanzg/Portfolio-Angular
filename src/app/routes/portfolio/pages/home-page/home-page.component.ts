@@ -30,6 +30,7 @@ import { HomePageDictionary, PortfolioLanguage, SectionId } from '../../models/h
 export class HomePageComponent implements AfterViewInit, OnDestroy {
   public language: PortfolioLanguage = this.getInitialLanguage();
   public isLoading = false;
+  public isMobileNavOpen = false;
   public statusMessage: string | null = null;
   public statusType: 'success' | 'error' | 'info' | null = null;
   public activeSection: SectionId | null = null;
@@ -63,6 +64,20 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   @HostListener('window:scroll')
   public onWindowScroll(): void {
     this.updateScrollState();
+  }
+
+  @HostListener('window:resize')
+  public onWindowResize(): void {
+    if (window.innerWidth > 768) {
+      this.closeMobileNav();
+    }
+
+    this.updateScrollState();
+  }
+
+  @HostListener('document:keydown.escape')
+  public onEscape(): void {
+    this.closeMobileNav();
   }
 
   public sendEmail(e: Event): void {
@@ -117,6 +132,7 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     localStorage.setItem('portfolio-language', language);
     this.statusMessage = null;
     this.statusType = null;
+    this.closeMobileNav();
     this.updateSeo();
 
     this.revealObserver?.disconnect();
@@ -127,24 +143,37 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   }
 
   public scrollToContact(): void {
+    this.closeMobileNav();
     this.scrollToSectionById('contact');
   }
 
   public scrollToProjects(): void {
+    this.closeMobileNav();
     this.scrollToSectionById('projects');
   }
 
   public scrollToAbout(): void {
+    this.closeMobileNav();
     this.scrollToSectionById('about');
   }
 
   public scrollToExperience(): void {
+    this.closeMobileNav();
     this.scrollToSectionById('experience');
   }
 
   public scrollToTop(): void {
+    this.closeMobileNav();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     this.activeSection = null;
+  }
+
+  public toggleMobileNav(): void {
+    this.isMobileNavOpen = !this.isMobileNavOpen;
+  }
+
+  public closeMobileNav(): void {
+    this.isMobileNavOpen = false;
   }
 
   public get content(): HomePageDictionary {
@@ -223,8 +252,6 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
     this.backgroundDrift = Math.min(currentScroll / (viewportHeight * 3), 1);
     this.showScrollTop = currentScroll > viewportHeight * 0.65;
 
-    const nav = document.querySelector('.chip-nav') as HTMLElement | null;
-    const navHeight = nav?.offsetHeight ?? 0;
     const aboutSection = document.getElementById('about');
     const experienceSection = document.getElementById('experience');
     const projectsSection = document.getElementById('projects');
@@ -234,7 +261,7 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    const activationOffset = navHeight + 56;
+    const activationOffset = this.getNavigationOffset() + 56;
     const aboutStart = aboutSection.offsetTop - activationOffset;
     const experienceStart = experienceSection.offsetTop - activationOffset;
     const projectsStart = projectsSection.offsetTop - activationOffset;
@@ -368,10 +395,17 @@ export class HomePageComponent implements AfterViewInit, OnDestroy {
   }
 
   private scrollToSection(section: HTMLElement): void {
-    const nav = document.querySelector('.chip-nav') as HTMLElement | null;
-    const navHeight = nav?.offsetHeight ?? 0;
-    const top = section.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+    const top = section.getBoundingClientRect().top + window.scrollY - this.getNavigationOffset() - 20;
     window.scrollTo({ top, behavior: 'smooth' });
     this.activeSection = section.id as SectionId;
+  }
+
+  private getNavigationOffset(): number {
+    if (window.innerWidth <= 768) {
+      return 0;
+    }
+
+    const nav = this.document.querySelector('.desktop-chip-nav') as HTMLElement | null;
+    return nav?.offsetHeight ?? 0;
   }
 }
